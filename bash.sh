@@ -2,4 +2,3 @@
 echo "Hello World!"
 ls
 kubectl create namespace crossplane-system
-
