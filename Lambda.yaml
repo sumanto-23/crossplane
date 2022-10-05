@@ -1,0 +1,16 @@
+apiVersion: lambda.aws.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: test-function
+spec:
+  forProvider:
+    packageType: Image
+    code:
+      imageURI: 398330996337.dkr.ecr.ap-south-1.amazonaws.com/jenkin-pipeline-demo
+    roleRef:
+      name: somerole
+    region: ap-south-1
+    tags:
+      myKey: jenkin-pipeline-demo
+  providerConfigRef:
+    name: default
