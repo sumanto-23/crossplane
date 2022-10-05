@@ -6,9 +6,9 @@ spec:
   forProvider:
     packageType: Image
     code:
-      imageURI: 398330996337.dkr.ecr.ap-south-1.amazonaws.com/jenkin-pipeline-demo
+      imageURI: 398330996337.dkr.ecr.ap-south-1.amazonaws.com/jenkin-pipeline-demo:latest
     roleRef:
-      name: somerole
+      name: workrole
     region: ap-south-1
     tags:
       myKey: jenkin-pipeline-demo
