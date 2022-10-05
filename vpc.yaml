@@ -12,3 +12,22 @@ spec:
     instanceTenancy: default
   providerConfigRef:
     name: default
+---    
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: Subnet
+metadata:
+  name: prod-subnet-1
+spec:
+  forProvider:
+    region: us-east-1
+    availabilityZone: us-east-1a
+    cidrBlock: 192.168.1.0/24
+    vpcIdRef:
+      name: pro-vpc
+    tags:
+    - key: Name
+      value: suman-vpc
+    mapPublicIPOnLaunch: true
+  providerConfigRef:
+    name: default
+ 
