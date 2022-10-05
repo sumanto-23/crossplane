@@ -1,0 +1,29 @@
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Role
+metadata:
+  name: workrole
+spec:
+  forProvider:
+    assumeRolePolicyDocument: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "ec2.amazonaws.com",
+                        "lambda.amazonaws.com"
+                    ]
+                },
+                "Action": [
+                    "sts:AssumeRole"
+                ]
+            }
+        ]
+      }
+    tags:
+      - key: ss
+        value: v1
+  providerConfigRef:
+    name: default
