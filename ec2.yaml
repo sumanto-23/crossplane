@@ -1,0 +1,10 @@
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: sample
+spec:
+  forProvider:
+    region: us-east-1
+    imageId: ami-026b57f3c383c2eec
+  providerConfigRef:
+    name: default
