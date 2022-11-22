@@ -1,0 +1,65 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: VPC
+metadata:
+  name: pro-vpc
+spec:
+  forProvider:
+    region: us-east-1
+    cidrBlock: 192.168.0.0/16
+    tags:
+    - key: Name
+      value: suman-vpc
+    instanceTenancy: default
+  providerConfigRef:
+    name: default
+---
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: Subnet
+metadata:
+  name: prod-subnet-1
+spec:
+  forProvider:
+    region: us-east-1
+    availabilityZone: us-east-1a
+    cidrBlock: 192.168.1.0/24
+    vpcIdRef:
+      name: pro-vpc
+    tags:
+    - key: Environment
+      value: Production
+    - key: Name
+      value: prod-subnet-1
+    - key: Owner
+      value: suman
+    mapPublicIPOnLaunch: true
+  providerConfigRef:
+    name: default
+---
+
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: production-internetgateway
+spec:
+  forProvider:
+    region: us-east-1
+    vpcIdRef:
+      name: pro-vpc
+  providerConfigRef:
+    name: default
+ 
+---
+
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: sample
+spec:
+  forProvider:
+    region: us-east-1
+    imageId: ami-026b57f3c383c2eec
+    instanceType: t2.micro
+    subnetIdRef:
+      name: prod-subnet-1  
+  providerConfigRef:
+    name: default
